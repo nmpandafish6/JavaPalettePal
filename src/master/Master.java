@@ -41,7 +41,6 @@ import util.ArrayUtil;
 public class Master {
     
     public static void main(String[] args){
-        System.out.println(Arrays.toString(ArrayUtil.looseSort(new int[]{29, 20, 73, 34, 64})));
         String urlString = "https://lh6.googleusercontent.com/-6kTwSQZ4PnM/UrEbgwZR0JI/AAAAAAAAfnw/7J-VX5q1H4o/s240/garibaldithumb.jpg";
         BufferedImage image = null;
         try {
@@ -53,10 +52,6 @@ public class Master {
         int[] histogram = imageToHistogram(image, bins);
         int maxIndex = ArrayUtil.getMaxIndex(histogram);
         float[] hsv = getAverageHSV_filtered(image, maxIndex, bins);
-        System.out.println(maxIndex);
-        System.out.println(Arrays.toString(histogram));
-        System.out.println(Arrays.toString(hsv));
-        System.out.println(Arrays.toString(getAverageHSV(image)));
         
         PalettePalGui palettePal = new PalettePalGui("Palette Pal");
         

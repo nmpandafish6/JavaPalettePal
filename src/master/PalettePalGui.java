@@ -46,7 +46,6 @@ public class PalettePalGui extends JFrame{
         dragAndDropText.setPreferredSize(new Dimension(150,300));
         dragAndDropText.setVerticalAlignment(JLabel.CENTER);
         dragAndDropText.setHorizontalAlignment(JLabel.CENTER);
-        System.out.println(DataFlavor.javaFileListFlavor.getMimeType());
         dragAndDropText.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 
@@ -72,12 +71,10 @@ public class PalettePalGui extends JFrame{
                     if(image != null){
                         int[] histogram = ImageReader.imageToHistogram(image, Preferences.numberOfBins);
                         int[] sortedHistogram = ArrayUtil.looseSort(histogram);
-                        System.out.println(Arrays.toString(sortedHistogram));
                         PaletteGui paletteGui = new PaletteGui(path);
                         float[] hsvTotal = ImageReader.getAverageHSV(image);
                         for(int i = 0; i < Preferences.numberOfColors; i++){
                             float[] hsv = ImageReader.getAverageHSV_filtered(image, sortedHistogram[sortedHistogram.length-1-i], Preferences.numberOfBins);
-                            System.out.println((sortedHistogram.length-1-i) + " : " + Arrays.toString(hsv));
                             Color color = Color.getHSBColor(hsv[0]/360.0f, hsv[1]/100f, hsv[2]/100f);
                             paletteGui.add(new JColorBox(color));
                             
@@ -111,7 +108,10 @@ public class PalettePalGui extends JFrame{
         JSplitPane splitpane1 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitpane0, captureScreen);
         JSplitPane splitpane2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitpane1, partialCaptureScreen);
         JSplitPane splitpane3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitpane2, colorChooser);
-        
+        fileSelect.setEnabled(false);
+        captureScreen.setEnabled(false);
+        partialCaptureScreen.setEnabled(false);
+        colorChooser.setEnabled(false);
         
         this.add(splitpane3);
         this.pack();
